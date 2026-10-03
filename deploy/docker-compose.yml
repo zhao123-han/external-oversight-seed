@@ -1,0 +1,33 @@
+# 跨平台外挂监管种子 . 企业级不可篡改部署（docker compose）
+# 三道环境级防线：只读根 fs + 规则 ro 卷 + 降权/seccomp/no-new-privileges
+services:
+  guard:
+    build: .
+    image: external-guard-seed:1.0
+
+    # 只读根文件系统：任何进程（含被监管 agent）都无法改写容器内规则
+    read_only: true
+    privileged: false
+
+    # 丢弃全部 Linux capabilities
+    cap_drop:
+      - ALL
+
+    # 禁止获得新特权（直接阻断提权类沙盒逃逸）
+    security_opt:
+      - no-new-privileges:true
+      - seccomp=./seccomp/profile.json
+
+    # 进程数上限，抑制 fork 炸弹类行为
+    pids_limit: 128
+
+    # 规则以只读卷挂载（即便 build 期未 chmod，运行时也只读）
+    volumes:
+      - ./kernel/rules.json:/app/kernel/rules.json:ro
+      - ./kernel/.rules.sig:/app/kernel/.rules.sig:ro
+
+    ports:
+      - "8080:8080"
+    user: "10001"
+    restart: unless-stopped
+    # 出口默认拒绝由宿主机/网络策略兜底（详见 k8s/networkpolicy.yaml）

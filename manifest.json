@@ -1,0 +1,16 @@
+{
+  "package": "跨平台外挂监管种子",
+  "version": "1.0.0",
+  "title": "跨平台外挂监管种子 · 统一内核工具包",
+  "description": "平台中立的外挂监管套件：对 agent 越界行为做 L-0 观察 / L-1 建议 / L-2 制止三档接管。统一判定内核 + 分平台适配层。",
+  "author": "赵涵铖（南京召无言教育科技有限公司）",
+  "license": "见 LICENSE；对外监管场景使用须获被监管方授权",
+  "runtime": "任意有 Python 3.8+ 的环境；核心规则平台无关，可移植到任意语言",
+  "dependencies": [],
+  "entry": "cli.py",
+  "kernel": "kernel/engine.py",
+  "rules": "kernel/rules.json",
+  "supported_platforms": ["workbuddy", "deepseek-harness", "generic-api", "hunyuan-sandbox"],
+  "enforcement_default": {"observe": true, "suggest": true, "stop": false},
+  "design": "统一内核（kernel/engine.py 为唯一判定入口）+ 分平台适配层（adapters/）"
+}

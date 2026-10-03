@@ -1,0 +1,280 @@
+{
+  "doc_type": "external_guard_seed_install_spec",
+  "schema_version": "1.0.0",
+  "package": "跨平台外挂监管种子",
+  "version": "1.0.0",
+  "zero_dependency": true,
+  "runtime": {
+    "python": ">=3.8",
+    "third_party": []
+  },
+  "supported_platforms": [
+    "workbuddy",
+    "deepseek-harness",
+    "generic-api",
+    "hunyuan-sandbox"
+  ],
+  "files": [
+    {
+      "path": "AGENT_INSTALL_GUIDE.md",
+      "role": "投喂式 Agent 自安装说明书",
+      "size": 20730,
+      "sha256": "5556b6ad57f21a34c16fb79731807da530306b960fac054fbf9b8a81e94ac67b"
+    },
+    {
+      "path": "ENV_HARDENING.md",
+      "role": "创造级落地说明(不可篡改稳定性层)",
+      "size": 5388,
+      "sha256": "66ed892ca71650e4efda743a78331fca7c78aa2fbfc3824d349af7a011ea1d8f"
+    },
+    {
+      "path": "LICENSE",
+      "role": "授权说明",
+      "size": 630,
+      "sha256": "cde1de83b55813a8765a6aca26d543a94ea7ed76b3964e0ff0ab08d908a191f4"
+    },
+    {
+      "path": "README.md",
+      "role": "总览",
+      "size": 6090,
+      "sha256": "c175e9ab5abff39ab1c26ad26c5a5a156b1d9ce9881babe099bdc75bc3ca33e9"
+    },
+    {
+      "path": "USER_GUIDE.md",
+      "role": "面向人类使用说明",
+      "size": 3019,
+      "sha256": "fd86c45213086ea602c8af4d5dab25eec6b5bc5a2545a10a7e9254b73c29d1d6"
+    },
+    {
+      "path": "adapters/PLATFORM_CHECKLIST.md",
+      "role": "平台对接 checklist",
+      "size": 2315,
+      "sha256": "efc9e6fa512089109d2143a52f4df6f5848842848081738fa4774f7204c8fcf3"
+    },
+    {
+      "path": "adapters/deepseek_harness.md",
+      "role": "DeepSeek harness 接入",
+      "size": 877,
+      "sha256": "7e23e6c8347761274e9c441ea0f003bf52fb98e91e3dd8f57daa2ce855098cf2"
+    },
+    {
+      "path": "adapters/generic_api.md",
+      "role": "通用 API 接入",
+      "size": 1069,
+      "sha256": "c482ee25b1b7d1801ac7c3663afb0eb1c62cac1924d0f6eaa142caef59831f90"
+    },
+    {
+      "path": "adapters/hunyuan_sandbox.md",
+      "role": "混元沙箱接入",
+      "size": 744,
+      "sha256": "01742d071054c773d29b01f128ee6b38bf72fada096d2ba96f5c14c430778287"
+    },
+    {
+      "path": "adapters/workbuddy.md",
+      "role": "WorkBuddy 接入",
+      "size": 1040,
+      "sha256": "3f8a0ae9f6ae6dd9526f7f9825b690938fa6d99382e129d5ff46be2758e798dc"
+    },
+    {
+      "path": "cli.py",
+      "role": "参考中间件 CLI",
+      "size": 2128,
+      "sha256": "2d0850f5f601c473bf1221c74f37cfbd05c0372a1776a064642fc178277f0552"
+    },
+    {
+      "path": "deploy/Dockerfile",
+      "role": "只读 rootfs + 规则0444 + 非root 构建",
+      "size": 886,
+      "sha256": "e11664e3a216d4fc5db64dec9ad8be4b6d1f331580903d234333e9c14a13e8e2"
+    },
+    {
+      "path": "deploy/docker-compose.yml",
+      "role": "只读根fs+rules ro卷+cap_drop+seccomp",
+      "size": 1045,
+      "sha256": "2141617eacf51aaee72766b3fa62d0feda3b7d5c54dd355258847f6acffb3e37"
+    },
+    {
+      "path": "deploy/guard-service.py",
+      "role": "企业级监管微服务(stdlib HTTP, stop->403)",
+      "size": 2828,
+      "sha256": "442b495b319233333d93fb1599f200ae14cb881c25b8f81f71e66b6bc7aaea43"
+    },
+    {
+      "path": "deploy/k8s/guard-deployment.yaml",
+      "role": "Deployment+Service(只读rootfs/drop ALL)",
+      "size": 1902,
+      "sha256": "57ea49e819b9586d4e94ad78e8d4029783c28247a9ecb6c3f4d396514640bf47"
+    },
+    {
+      "path": "deploy/k8s/networkpolicy.yaml",
+      "role": "出口默认拒绝+白名单",
+      "size": 836,
+      "sha256": "d9bb460ba8b36a1c5f7884cf67a8f5e2e4afc95954dbd320f8f67a19cee6ad8d"
+    },
+    {
+      "path": "deploy/k8s/rules-configmap.yaml",
+      "role": "规则 ConfigMap 生成指引",
+      "size": 533,
+      "sha256": "f3bc6ca093a5cf5113772011bd32fb1a020810f8faced7eb4153fe03e915e2cc"
+    },
+    {
+      "path": "deploy/seccomp/profile.json",
+      "role": "seccomp 拦截沙盒逃逸/提权 syscall",
+      "size": 890,
+      "sha256": "8b2721d406a5128112ced6dca8c2348967ecd744a403e09e41df49118b6cc277"
+    },
+    {
+      "path": "docs/设计规格.md",
+      "role": "设计规格(四元组+三档+架构+诚实边界)",
+      "size": 7492,
+      "sha256": "c936bed16dbfe6bf9c7d981fb6a5c7ce4e20faaa75857bbc62538eb54ecd55bd"
+    },
+    {
+      "path": "examples/demo_call.json",
+      "role": "演示样本",
+      "size": 81,
+      "sha256": "2235d84ff4c9d7914801cf9daf45e0b18fab9c05dc31b5f28755f6bc64eacd09"
+    },
+    {
+      "path": "install.py",
+      "role": "跨平台安装器(部署/签名/校验/seam自检/企业隔离)",
+      "size": 7277,
+      "sha256": "ee204b6687f529a05ce548a0717c756c468ded348afc32f42b44d506c8e64d70"
+    },
+    {
+      "path": "kernel/engine.py",
+      "role": "统一判定内核(唯一入口 evaluate)",
+      "size": 8379,
+      "sha256": "5b88558771c04d5a6fc55bf7c1e522701aa42d45e3ba6c62cd6d4d68f127abce"
+    },
+    {
+      "path": "kernel/env_lock.py",
+      "role": "企业不可篡改隔离检测",
+      "size": 1948,
+      "sha256": "5a58881b1997589ec4ab0e66ab722a288a06dbf3535319f0c1319c4604e89865"
+    },
+    {
+      "path": "kernel/rules.json",
+      "role": "平台无关规则核心(7条越界规则)",
+      "size": 2707,
+      "sha256": "b470246cb3e5cd815d4c2c618753cf335ba58285e7ee64a4184c7c26c4d1071f"
+    },
+    {
+      "path": "manifest.json",
+      "role": "包元数据",
+      "size": 963,
+      "sha256": "fb9793f8f15ff484f5acb0b7819901604694a4aa469ba87ea58a00e4d23b3963"
+    }
+  ],
+  "steps": [
+    {
+      "id": "S1",
+      "phase": "deploy",
+      "command": "python install.py --target <TARGET> --platform <PLATFORM>",
+      "effect": "复制核心 + 登记 kernel/.rules.sig",
+      "assert": [
+        "target 含 kernel/rules.json",
+        "target 含 kernel/.rules.sig"
+      ]
+    },
+    {
+      "id": "S2",
+      "phase": "verify",
+      "command": "python install.py --target <TARGET> --platform <PLATFORM>",
+      "expect_log_contains": [
+        "防篡改闭环正常",
+        "内核可加载",
+        "授权真伪加固正常"
+      ],
+      "assert": [
+        "enforcement.observe==true",
+        "enforcement.suggest==true",
+        "enforcement.stop==false",
+        "sandbox_escape 默认降级为 suggest"
+      ]
+    },
+    {
+      "id": "S3",
+      "phase": "attach",
+      "per_platform": {
+        "workbuddy": "PreToolUse hook 调 cli.py；stop 需 hook 有 deny 权(exit 2)",
+        "deepseek-harness": "dsh pre-execute 插件调同一内核；verdict.stop 硬阻断",
+        "generic-api": "工具分发前插 evaluate；stop->403/阻断",
+        "hunyuan-sandbox": "沙箱前置拦截器；stop 中止本次执行"
+      }
+    },
+    {
+      "id": "S4",
+      "phase": "enterprise_check",
+      "command": "python install.py --target <TARGET> --platform <PLATFORM>",
+      "expect_log_contains": [
+        "企业隔离"
+      ],
+      "assert": [
+        "stop=true 时 rules.json 不可写(只读/immutable)"
+      ]
+    },
+    {
+      "id": "S5",
+      "phase": "optional_stop",
+      "precondition": "seam 清单全确认 + enterprise 隔离落实",
+      "action": "rules.json: authorization 四要素填全 + enforcement.stop=true",
+      "effect": "越界高危调用被硬阻断",
+      "note": "未授权 / 签名不符 / 规则可写 任一不满足则 stop 自动降级为 suggest"
+    }
+  ],
+  "verification_inline": {
+    "command": "python -c \"import sys; sys.path.insert(0,'.'); from kernel.engine import load_rules,evaluate; r=load_rules('kernel/rules.json'); print(evaluate(r,{'tool':'shell','intent':'sandbox_escape'})); print(evaluate(r,{'tool':'calc','expr':'1+1'}))\"",
+    "expect": {
+      "sandbox_escape": "verdict=suggest (默认 stop=false 降级)",
+      "benign": "verdict=allow"
+    }
+  },
+  "seam_checklist": {
+    "workbuddy": [
+      "工具调用执行前先过 evaluate",
+      "hook 在 stop=true 时真阻断(非仅记录)",
+      "rules.json 只读随包分发"
+    ],
+    "deepseek-harness": [
+      "AGENT_INSTALL_GUIDE.md 已投喂且每次调用前 evaluate",
+      "harness 把 verdict.stop 当硬阻断",
+      "rules.json 与 .rules.sig 一并加载"
+    ],
+    "generic-api": [
+      "API 中间件分发前同步 evaluate",
+      "verdict.stop->403/阻断",
+      "规则文件存中间件侧且可读 .rules.sig"
+    ],
+    "hunyuan-sandbox": [
+      "沙箱前置拦截器挂载",
+      "沙箱层 stop 能中止执行",
+      "rules.json 只读挂载进沙箱"
+    ]
+  },
+  "authorization": {
+    "required_for_stop": true,
+    "fields": [
+      "granted_by",
+      "scope",
+      "signed_at",
+      "confirmation_token"
+    ],
+    "integrity_gate": "kernel/.rules.sig 须与 rules.json sha256 匹配",
+    "degrade_rule": "stop 生效前置 (integrity==ok) AND (authorization 四要素齐全)；任一不满足则降级 suggest",
+    "note": "声明不等于验证；部署者自负"
+  },
+  "honest_boundary": [
+    "四平台全实测未完成；dsh/混元 seam 来自文档未本机验证",
+    "容器/seccomp/eBPF/K8s 需真实 Linux 主机部署后验证，本包仅产出 IaC",
+    "seccomp 拦截集与网络白名单(cidr 占位)须按真实业务裁剪",
+    "可监管性 = 有授权 × 有 seam；授权或 seam 任一为 0 则不可用",
+    "创造级(宿主隔离/行为检测)授权仅限授予它的具体任务，不跨任务延续"
+  ],
+  "do_not_change": [
+    "判定逻辑唯一入口 kernel/engine.py:evaluate 不得在各平台重写",
+    "stop 前置的 integrity+authorization 双闸不得去掉",
+    "rules.json 的 authorization 四要素要求不得弱化",
+    "创造级交付物仅为可部署 IaC，不得声称已在生产环境生效"
+  ]
+}

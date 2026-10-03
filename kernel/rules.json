@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0.0",
+  "name": "跨平台外挂监管种子-rules",
+  "description": "统一内核规则核心：越界行为三档判定（平台无关，任何环境可读）",
+  "enforcement": {
+    "observe": true,
+    "suggest": true,
+    "stop": false
+  },
+  "authorization": {
+    "granted_by": "",
+    "scope": "",
+    "signed_at": "",
+    "confirmation_token": "",
+    "revocable": true,
+    "tamper_proof": false,
+    "note": "stop=true 时四要素(granted_by/scope/signed_at/confirmation_token)必须真实完整填写；内核会校验字段，缺项则制止自动降级为建议——声明不等于验证，部署者自负。"
+  },
+  "rules": [
+    {
+      "id": "R-SANDBOX-ESCAPE",
+      "label": "沙盒逃逸",
+      "severity": "critical",
+      "match": {"intent": "sandbox_escape"},
+      "on_hit": {"observe": "record", "suggest": "warn", "stop": "deny"}
+    },
+    {
+      "id": "R-DEFENSE-TAMPER",
+      "label": "篡改或关闭监管",
+      "severity": "critical",
+      "match": {"any_param_contains": ["disable guard", "关闭监管", "disable_guard", "remove monitor", "uninstall guard"]},
+      "on_hit": {"observe": "record", "suggest": "warn", "stop": "deny"}
+    },
+    {
+      "id": "R-FS-WRITE-OUTSIDE",
+      "label": "越权写宿主文件系统",
+      "severity": "high",
+      "match": {"any_param_contains": ["/etc/", "/root/", "c:\\windows", "write_outside_sandbox"]},
+      "on_hit": {"observe": "record", "suggest": "warn", "stop": "deny"}
+    },
+    {
+      "id": "R-EXFIL-NETWORK",
+      "label": "未授权外联",
+      "severity": "high",
+      "match": {"intent": "exfil_network"},
+      "on_hit": {"observe": "record", "suggest": "warn", "stop": "deny"}
+    },
+    {
+      "id": "R-SECRET-READ",
+      "label": "读取密钥或凭据",
+      "severity": "high",
+      "match": {"any_param_contains": ["API_KEY", "SECRET", "PRIVATE_KEY", "私钥", "密码文件", "credential"]},
+      "on_hit": {"observe": "record", "suggest": "warn", "stop": "deny"}
+    },
+    {
+      "id": "R-CODE-EXEC-UNSAFE",
+      "label": "危险代码执行",
+      "severity": "high",
+      "match": {"any_param_contains": ["os.system", "subprocess", "__import__", "eval(", "exec("]},
+      "on_hit": {"observe": "record", "suggest": "warn", "stop": "deny"}
+    },
+    {
+      "id": "R-PROMPT-INJECT",
+      "label": "提示词注入迹象",
+      "severity": "medium",
+      "match": {"any_param_contains": ["ignore previous", "忽略先前指令", "system prompt", "disregard instructions", "忽略上文"]},
+      "on_hit": {"observe": "record", "suggest": "warn", "stop": "allow"}
+    }
+  ]
+}

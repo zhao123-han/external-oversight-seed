@@ -1,0 +1,27 @@
+# 跨平台外挂监管种子 . 网络出口策略（环境级行为检测兜底）
+# 作用：默认拒绝一切出口流量，仅放行 DNS 与白名单内网管控面 → 未授权外联（R-EXFIL-NETWORK）在网层即被掐断
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: external-guard-seed-egress
+spec:
+  podSelector:
+    matchLabels:
+      app: external-guard-seed
+  policyTypes:
+    - Egress
+  egress:
+    # 1) DNS 解析（kube-dns / coredns）
+    - ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # 2) 仅放行内网管控/被监管面（按真实网段改 cidr）
+    - to:
+        - ipBlock:
+            cidr: 10.0.0.0/8
+      ports:
+        - protocol: TCP
+          port: 8080
+    # 其余所有出口（公网、非常见内网）默认拒绝

@@ -1,0 +1,12 @@
+# 跨平台外挂监管种子 . 规则 ConfigMap（只读挂载源）
+# 生成方式（部署前先登记 .rules.sig）：
+#   python install.py --target . --platform generic-api
+#   kubectl create configmap external-guard-seed-rules \
+#     --from-file=rules.json=kernel/rules.json \
+#     --from-file=.rules.sig=kernel/.rules.sig
+# 注：不要手工粘贴规则内容，避免与源文件漂移；由 install.py 登记签名后从文件生成。
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: external-guard-seed-rules
+data: {}

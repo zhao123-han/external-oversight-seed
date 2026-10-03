@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-guard-seed
+  labels:
+    app: external-guard-seed
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: external-guard-seed
+  template:
+    metadata:
+      labels:
+        app: external-guard-seed
+    spec:
+      # Pod 级安全上下文：非 root + seccomp 本地画像
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 10001
+        fsGroup: 10001
+        seccompProfile:
+          type: Localhost
+          localhostProfile: guard-seccomp.json
+      containers:
+        - name: guard
+          image: external-guard-seed:1.0
+          args: ["--host", "0.0.0.0", "--port", "8080"]
+          ports:
+            - containerPort: 8080
+          # 容器级：只读根 fs + 禁止提权 + 丢弃全部 capabilities
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            privileged: false
+            capabilities:
+              drop: ["ALL"]
+          # 规则以 ConfigMap 只读挂载（构建期不可篡改）
+          volumeMounts:
+            - name: rules
+              mountPath: /app/kernel/rules.json
+              subPath: rules.json
+              readOnly: true
+            - name: rules
+              mountPath: /app/kernel/.rules.sig
+              subPath: .rules.sig
+              readOnly: true
+            - name: tmp
+              mountPath: /tmp
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+      volumes:
+        - name: rules
+          configMap:
+            name: external-guard-seed-rules
+        - name: tmp
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: external-guard-seed
+spec:
+  selector:
+    app: external-guard-seed
+  ports:
+    - port: 8080
+      targetPort: 8080
