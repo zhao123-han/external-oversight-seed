@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>结构体检报告（人读版）· 跨平台外挂监管种子</title>
+<style>
+  :root{
+    --navy:#1A3C5E; --teal:#2E7D6B; --ink:#20303d; --muted:#5b6b78;
+    --line:#d8e0e6; --bg:#ffffff; --soft:#f4f7f9; --warn:#b4451f; --ok:#2E7D6B;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font-family:"Microsoft YaHei","PingFang SC","Hiragino Sans GB","Source Han Sans SC",sans-serif;
+       font-size:15px;line-height:1.85;}
+  .page{max-width:860px;margin:0 auto;padding:42px 46px 64px;}
+  h1{font-size:25px;color:var(--navy);margin:0 0 6px;letter-spacing:.4px;}
+  h2{font-size:19px;color:var(--navy);margin:38px 0 12px;padding:8px 0 8px 12px;
+     border-left:5px solid var(--teal);background:linear-gradient(90deg,#f2f7f6,#ffffff);}
+  h3{font-size:16px;color:var(--teal);margin:22px 0 6px;}
+  p{margin:9px 0;}
+  .sub{color:var(--muted);font-size:13.5px;margin:0 0 22px;}
+  .card{border:1px solid var(--line);border-radius:10px;padding:18px 20px;background:var(--soft);margin:16px 0;}
+  .verdict{border-left:6px solid var(--navy);background:#f7fafb;}
+  .verdict .big{font-size:17.5px;color:var(--navy);font-weight:700;line-height:1.7;}
+  .three{display:grid;grid-template-columns:1fr;gap:10px;margin:14px 0;}
+  .three div{border:1px solid var(--line);border-radius:8px;padding:12px 16px;background:#fff;}
+  .three b{color:var(--navy);}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top;}
+  th{background:#eef3f6;color:var(--navy);font-weight:700;}
+  td code,p code,li code{background:#eef3f6;padding:1px 5px;border-radius:4px;
+       font-family:Consolas,"Courier New",monospace;font-size:12.8px;color:#164055;}
+  .p0{border:1px solid #e5c9bd;border-left:6px solid var(--warn);border-radius:9px;
+      padding:16px 18px;margin:18px 0;background:#fdf8f6;}
+  .p0 .t{font-weight:700;color:var(--warn);font-size:16px;}
+  .bar{height:11px;background:#e3eaee;border-radius:6px;overflow:hidden;margin:5px 0 2px;}
+  .bar span{display:block;height:100%;background:var(--teal);}
+  .bar.w span{background:var(--warn);}
+  .barlab{font-size:12.5px;color:var(--muted);}
+  .note{font-size:13.5px;color:var(--muted);}
+  .keep{border-left:6px solid var(--teal);background:#f3f8f7;border-radius:9px;padding:14px 18px;margin:14px 0;}
+  ol,ul{margin:9px 0 9px 22px;padding:0;}
+  li{margin:5px 0;}
+  .foot{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:12.8px;color:var(--muted);}
+  @media print{
+    body{font-size:11.5pt;}
+    .page{max-width:none;padding:0;}
+    h2{break-after:avoid;} table,.p0,.card,.keep{break-inside:avoid;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <h1>结构体检报告 · 人读版</h1>
+  <p class="sub">对象：「跨平台外挂监管种子」工具包（Apache-2.0 开源，实验性参考实现）· 体检日期 2026-10-04 · 体检人：钥匙（跨领域结构分析专家）</p>
+
+  <div class="card verdict">
+    <div class="big">结论一句话：<br>
+      这份东西的<strong>设计思路是干净的、甚至比多数同类项目更讲究</strong>；问题出在——它把"这套监管是不可被别人改掉的"这句话，交给了一条<strong>自己也能随时改掉的锁</strong>去保证。所以它现在能"看着"，但还<strong>不能真的拦人</strong>。</div>
+    <p class="note" style="margin-top:10px">大白话补充：他不是设计错了，是<span style="color:var(--warn)">"说了十分、做到了六分"，其中最关键的那一分（拦得住）还在说明书的承诺里，没落到机器里。</span></p>
+  </div>
+
+  <h2>一、一分钟读完</h2>
+  <div class="three">
+    <div><b>做对了什么：</b>"只观察、只建议，不越权去拦"这个分寸感做得非常好——默认不拦人，要拦必须有人正式授权，而且授权不全时它会自己退回"只建议"。这是很多同类工具最缺的克制。</div>
+    <div><b>出了什么问题：</b>三道最要紧的安全承诺——"规章改不了""改了会被发现就不动手""能喊停"——第一道锁的钥匙和被锁的东西放在同一个抽屉里；第二道在执行时走错了路（被改了不是拦住，是<b>放行</b>）；第三道的哨子<b>根本不会响</b>。</div>
+    <div><b>最该警惕的陷阱：</b>说明书里的"最小运行示例"是<b>自己先报了身份</b>的示范用例，所以看起来"已经拦住了"。真实环境里没人替它报身份，两条最关键的规则（沙盒越狱、偷数据外发）实际上<b>一次都不会触发</b>——这会给使用者一种"我已经被保护了"的错觉。</div>
+  </div>
+
+  <h2>二、它到底是干什么的</h2>
+  <p><b>生活类比：</b>它相当于在 AI 助手的"手"前面，请了一位第三方保安。AI 每要做一个动作（删文件、发网络请求、跑命令），先过一遍保安手里的《禁令清单》：清单上没写 → 放行；写了 → 记一笔（观察）、或者提醒你一句（建议）、或者直接按住不让做（制止）。</p>
+  <p><b>输入 → 输出：</b>输入是"AI 准备做的一个动作"，输出是一个判定结果：<code>观察</code> / <code>建议</code> / <code>制止</code> / <code>放行</code>。它不改 AI 本体，随时可以拆掉——这就是它最想强调的"外挂优于内改"。</p>
+  <p class="note">这份"体检"只判断：<b>它的机构设置、岗位职责、规则条文之间是否讲得通、有没有互相打架、有没有该有人管的环节没人管</b>。它管不管用（漏报多少、误报多少）不在这份报告的能力范围内——那要在真实活儿里跑数据才算得出来。</p>
+
+  <h2>三、结构体检：四个最反直觉的地方</h2>
+  <p>下面四条都是**现场实测**出来的（在隔离环境里真跑了一遍，不是读文档猜的）。左边是它对外宣称的强度，右边是实测到的强度。</p>
+
+  <p class="barlab">① 防篡改：宣称"谁改都能发现"　vs　实测"改完顺手把印章也重盖一遍就查不出来"</p>
+  <div class="bar w"><span style="width:22%"></span></div>
+  <p class="barlab">② 篡改应对：宣称"发现被改就降级"　vs　实测"被改后直接放行"</p>
+  <div class="bar w"><span style="width:12%"></span></div>
+  <p class="barlab">③ 制止能力：宣称"退出码 2 硬阻断"　vs　实测"程序永远以 0 结束，哨子不响"</p>
+  <div class="bar w"><span style="width:10%"></span></div>
+  <p class="barlab">④ 规则覆盖：宣称"7 条越界规则"　vs　实测"2 条活在没人负责的标签上，官方示例里那一栏是空的"</p>
+  <div class="bar w"><span style="width:38%"></span></div>
+  <p class="note">这几条恰恰说明一件事：<b>会写安全文档 ≠ 能免疫自己的安全盲区</b>。这个项目在文档里反复强调"不伪成功、不虚假监管"——这个态度是对的，但同样的标准还没有回头照到它自己的代码上。</p>
+
+  <h2>四、必须马上修的 4 件事</h2>
+
+  <div class="p0">
+    <div class="t">P0-1｜锁和钥匙放在同一个抽屉里</div>
+    <p><b>怎么讲：</b>它为了证明"规章没被人动过"，给规章配了一个"指纹印章"。可这个印章是"算出来的"——任何能改规章的人，都能顺手把新规章再算一遍指纹盖上去。于是"改过"这件事就查不出来了。实测：改完规章、重算印章，系统照样报"完好"。</p>
+    <table>
+      <tr><th style="width:26%">怎么改</th><td>印章换成"必须有一把外部密钥才能盖"的形式，这把密钥<b>不出现在被监管的那台环境里</b>；实在来不及，就至少把印章放在被监管方"只能读、不能写"的位置，并在说明书里老实写清"现在这个指纹只是查一致性，算不上防篡改"。</td></tr>
+      <tr><th>修完怎么确认</th><td>手动改规章 + 重新盖一遍印章，系统<b>必须</b>报"不可信"。现在是报"完好"——所以这条现在<b>没通过</b>。</td></tr>
+    </table>
+  </div>
+
+  <div class="p0">
+    <div class="t">P0-2｜被改了不是拦住，而是放行</div>
+    <p><b>怎么讲：</b>像小区门口立着"禁止入内"的牌子，牌子上还写着一行小字："如果发现牌子被改过，保安就不许动手拦人。" 那想进去的人会怎么做？——<b>把"禁止入内"那几个字擦掉</b>。牌子被改过 → 保安不许拦 → 而且清单上没有可拦的条目 → 直接放行。实测确实如此：篡改后的结果是<code>放行</code>，只在角落里打了一行提示。</p>
+    <table>
+      <tr><th style="width:26%">怎么改</th><td>把"规章不可信"提升为全局开关：只要发现规章被动过（或读不出来），<b>所有判定一律不许出"放行"</b>，全部转人工复核。原来的"默认不拦"要保留，但"不可信时绝不放行"要新加上。</td></tr>
+      <tr><th>修完怎么确认</th><td>篡改后再跑一次，结果<b>不得</b>是"放行"。现在是放行——<b>没通过</b>。</td></tr>
+    </table>
+  </div>
+
+  <div class="p0">
+    <div class="t">P0-3｜说明书写"吹两声哨子就停"，但这只哨子不响</div>
+    <p><b>怎么讲：</b>接入说明里写着"制止档：程序会以错误码 2 结束，宿主看到就阻断"。可这个程序从第一行到最后一行的代码，<b>永远以 0（正常）结束</b>。也就是说，如果有人照着说明书接线，那个"硬阻断"永远不会发生。</p>
+    <p class="note">这一条要先跟你确认：到底是<b>"程序负责吹哨"</b>（那就是代码缺了这段），还是<b>"接线的人自己看判定结果再决定"</b>（那就是说明书这句话写错了）。两种改法都简单，但不能都不做。</p>
+    <table>
+      <tr><th style="width:26%">怎么改</th><td>二选一：给程序加"判定为制止时以错误码 2 结束"；或者把说明书改成"接线的人读到判定结果后自己阻断"，并附一段接线示例。</td></tr>
+      <tr><th>修完怎么确认</th><td>实测一次"制止"场景，看错误码是不是 2（现在是 0）。</td></tr>
+    </table>
+  </div>
+
+  <div class="p0">
+    <div class="t">P0-4｜两条最关键的规则，要求"坏人自己先报名"</div>
+    <p><b>怎么讲：</b>7 条规则里，"沙盒越狱"和"未授权往外发数据"这两条最要紧的，判断方式不是看动作本身，而是看动作上有没有贴一个"我是越界行为"的标签。而官方给的接线示例里，这一栏填的是<b>空</b>。没人负责贴标签 → 这两条规则<b>永远不触发</b>。更麻烦的是：说明书的运行示例用的是<b>已经贴好标签</b>的示范数据，所以看起来是有效的。</p>
+    <table>
+      <tr><th style="width:26%">怎么改</th><td>给这两条补上"看动作本身"的兜底关键字（比如 <code>mount --bind</code>、<code>unshare</code> 这类越狱特征）；再在接线自查清单里明确写上"标签由谁负责贴、贴漏了怎么办"；说明书补一组"没贴标签"的用例，把真实结果写出来。<b>不要</b>靠加一大堆宽泛关键字硬凑——那会把误报率推高，反而毁掉默认开着的"建议"档。</td></tr>
+      <tr><th>修完怎么确认</th><td>模拟一次"没贴标签"的越狱动作，结果不得是"放行"。现在实测是放行——<b>没通过</b>。</td></tr>
+    </table>
+  </div>
+
+  <h2>五、千万别改的东西</h2>
+  <div class="keep">
+    <p>这几处是<b>刻意设计</b>，不是毛病。动了会伤到根子：</p>
+    <ol>
+      <li><b>三档默认值（只观察、只建议默认开，制止默认关）。</b>这是"没授权就不越权动手"的落点。</li>
+      <li><b>降级而不是放行。</b>命中高危但没授权时退回"建议"并写明理由。千万别为了"看起来更安全"改成默认拦截（那就是越权），也别改成默认放行（那就是虚假监管）。</li>
+      <li><b>判定只写一份。</b>四个平台共用同一个判定内核，这是它最值钱的结构选择，不要为图方便在每个平台各写一份。</li>
+      <li><b>"提示词注入"那条规则不制止。</b>它是中危，配套行为就是"不拦"，前后是自洽的——别因为"看起来不一致"就改成拦。</li>
+      <li><b>授权四项只是"填没填"的检查。</b>作者自己已经诚实标注过"声明不等于验证"。要提升强度请走 P0-1 那把外部钥匙，别在核心里做一个假的"强验证"——那比现在更糟。</li>
+      <li><b>企业级的容器/系统级加固"只给配置、不在本机验证"。</b>这是正确的自我约束（那部分必须在真实 Linux 主机上验）。不要为了好看伪造一个"已通过"。</li>
+      <li><b>英文目录名（adapters / deploy / docs / examples / kernel）不是缺陷。</b>顺便说明一下：你发我的那张截图里显示的"适配器/部署/<b>纪录片</b>/示例/内核"是浏览器自动翻译的显示效果，仓库里真实的目录名是英文的，<code>docs</code> 被翻译成了"纪录片"——这不是仓库的问题，我不会把它算成缺陷。</li>
+      <li><b>"装完就能用"的低摩擦入口要保留。</b>别为了安全叙事把默认态收紧成"没授权就完全不能用"。</li>
+    </ol>
+  </div>
+
+  <h2>六、还该改的小事</h2>
+  <h3>接下来这批（P1，成组一起改）</h3>
+  <table>
+    <tr><th style="width:31%">问题</th><th style="width:37%">人话解释</th><th>怎么改</th></tr>
+    <tr><td>重装会悄悄清掉授权</td><td>你填好的授权信息，重跑一次安装程序就没了，而且没有任何提示——监管静默失效</td><td>重装时保留目标环境里已填的"授权/档位"，或直接拒绝覆盖并提示加参数</td></tr>
+    <tr><td>在包里打开"制止"会让安装程序崩溃</td><td>安装程序里写死了一句"制止必须是关的"，而你照说明书写的方式正是要打开它——两处互相打架，结果是报错中断</td><td>把"包里默认关"和"部署时可以开"分开，开了就提示复核授权</td></tr>
+    <tr><td>缺了前置文件就"崩给你看"</td><td>那三份容器部署配置默认印章文件已经存在，但仓库里没有它（要装了才有）。缺了会变成：构建直接失败 / 空规则启动失败 / 把文件路径错建成文件夹后报一个看不懂的错</td><td>加明确的检查并给出"先跑哪条命令"的提示；读规则时把错误兜住，变成"不可信"而不是崩溃</td></tr>
+    <tr><td>"授权真伪"说重了</td><td>名字叫"真伪校验"，实际只检查四个格子里有没有填字。另外有两个字段写在配置里但没有任何程序读它，容易被当成"已经实现了"</td><td>把措辞改回"授权信息完整性检查（真伪需外部担保）"，并处理掉那两个空转字段</td></tr>
+    <tr><td>说明书指向一份没有这句话的文件</td><td>README 写着"监管他人须获授权（见 LICENSE）"，但打开 LICENSE 里根本没有"授权"这两个字——纯标准开源协议</td><td>把这句约束单独写进一份说明文件，README 改指过去；标准协议原文别动</td></tr>
+    <tr><td>同一条规则存在两个副本</td><td>"给 AI 看的安装说明"里把 7 条规则整段抄了一遍。以后改规则要人工改两处，而项目没有自动检查——迟早会出现"文档说拦、程序不拦"</td><td>改成只指向真源，或加一个自动比对脚本并挂到持续集成上</td></tr>
+    <tr><td>没有测试集、没有自动检查</td><td>整个项目靠"装的时候顺手跑几条断言"来验证。而这次发现的几个大问题，恰好写 7 条小用例就能抓到</td><td>补一个零依赖的最小测试集（含本文发现的几条），挂到持续集成</td></tr>
+    <tr><td>安装器不复制说明书，却自查"说明书已投喂"</td><td>自查清单第 1 条要求"已把某说明书投喂给 AI"，可安装器根本没把这个文件复制过去——现场没法自证</td><td>把三份说明书纳入部署范围，或把自查措辞改成实际路径</td></tr>
+    <tr><td>监管服务：启动后不再复查 + 谁都能调</td><td>它是常驻服务，但只在启动那一刻检查过一次规章完整性；另外判定接口没有任何身份校验，同一网络里谁都能来试探"哪些词会被拦"</td><td>每次请求前复查一次；接口加调用方令牌；把"只允许谁调用"写进部署策略</td></tr>
+  </table>
+
+  <h3>顺手收拾（P2）</h3>
+  <table>
+    <tr><th style="width:34%">问题</th><th>怎么改</th></tr>
+    <tr><td>说明书里"诚实边界"这一节重复出现了两次（第二段还少了一句）</td><td>合并成一段，留信息多的那版</td></tr>
+    <tr><td>仓库名和项目名不是一回事（一个平台叫"一把解开世界的钥匙"，另一个平台叫 external-oversight-seed）</td><td>统一命名，并在首页写明两处是同一项目的镜像</td></tr>
+    <tr><td>有版本号 1.0.0，但一个正式版本都没发布过</td><td>打一个 v1.0.0 标签，两个平台各建一个发布页（附压缩包）</td></tr>
+    <tr><td>忽略规则把所有 zip 都排除了</td><td>收窄到只排除那一个打包产物</td></tr>
+    <tr><td>两个版本号的演进互不相关</td><td>加一条兼容性检查</td></tr>
+    <tr><td>检查规则时只看"值"，不看"字段名"——藏在字段名里的信息会漏掉</td><td>要么补上，要么把这条例外明确写进"诚实边界"</td></tr>
+    <tr><td>系统级加固是"黑名单"模式（默认放行，只挡了 23 个动作），属常规基线</td><td>措辞上别让人读成"强隔离"，写清它和容器默认档是同一量级</td></tr>
+    <tr><td>仓库目录名是浏览器翻译层的显示效果（"适配器/部署/纪录片/示例/内核"）</td><td>无需改代码；对外沟通时用真实英文名（adapters/deploy/docs/examples/kernel），别用翻译后的名字讨论仓库</td></tr>
+  </table>
+
+  <h2>七、下一步</h2>
+  <ol>
+    <li><b>先回答一个判断题</b>：P0-3 里"哨子由谁吹"（程序吹 / 接线人自己阻断），定了才好动代码。</li>
+    <li><b>再答一个选择题</b>：防篡改那把外部钥匙放在哪？（这是 P0-1 的前提，也直接关系到"监管方要有自己的凭据"这条边界的取舍。）</li>
+    <li><b>然后按顺序做</b>：P0-1 与 P0-2 <b>必须同一批做</b>（只做一条，另一条还是直通路径）→ P0-4（补兜底关键字）→ P0-3 → 再进 P1。</li>
+    <li><b>每改完一条，跑一次实测</b>，不要凭"代码已改"就算完成。人读版和机读版里，每条都写了"修完怎么确认"。</li>
+  </ol>
+  <p><b>如果只做一件事</b>：做 P0-2。因为它把"监管失效"从"能被发现"变成了"悄无声息"，而这一条恰好是<strong>七行代码</strong>就能挡住的口子。</p>
+
+  <h2>八、名词对照表</h2>
+  <table>
+    <tr><th style="width:30%">文档里的说法</th><th>大白话</th></tr>
+    <tr><td>统一内核 / kernel</td><td>判定标准只写了这一份，四个平台都拿它来判</td></tr>
+    <tr><td>外挂 / 外挂式</td><td>不改 AI 本体，在它前面加一道关卡；随时能拆（注意：中文里"外挂"容易被误读成"作弊外挂"）</td></tr>
+    <tr><td>三档：观察 / 建议 / 制止</td><td>记一笔 / 提醒你一句 / 直接按住不让做</td></tr>
+    <tr><td>降级（降级为建议）</td><td>想拦但资格不够，于是退回"提醒"，并且写明为什么不能拦</td></tr>
+    <tr><td>integrity（完整性）</td><td>规矩有没有被人动过的标记；本报告里实测出"可以自己重盖一遍冒充完好"</td></tr>
+    <tr><td>sha256 / 签名</td><td>给文件算一个指纹。注意：这个指纹<b>没有密码保护</b>，谁都能重算，所以它查的是"一致"，不是"防改"</td></tr>
+    <tr><td>authorization 四要素</td><td>授权的四个格子：谁授权、范围、时间、确认凭据。现在只检查"填没填"</td></tr>
+    <tr><td>seam（接入缝隙）</td><td>宿主平台有没有留一个"能在动作执行前插一道关卡"的口子；没口子就没法拦</td></tr>
+    <tr><td>fail-closed / fail-open</td><td>出问题时"默认拦住" / "默认放行"。本报告实测发现当前是"默认放行"</td></tr>
+    <tr><td>intent（意图标签）</td><td>给每个动作贴一个"这是不是越界"的标签——现在的做法是让动作自己承认，而官方示例如实填"空"</td></tr>
+  </table>
+
+  <h2>九、哪些话不能全信</h2>
+  <ul>
+    <li><b>"能拦住"这件事，还没在真实平台上验过。</b>本项目自己说四个平台"尚未全量实测"，本报告也只在本机跑了判定逻辑，没在真实宿主里验证"拦得住"。</li>
+    <li><b>规则好不好用（漏报多少、误报多少），本报告算不出来。</b>那需要在真实任务上跑一批带标准答案的样本。所以别把"7 条规则"理解成"覆盖了 7 类风险"。</li>
+    <li><b>容器/系统级加固那部分，本报告没验。</b>必须在真实 Linux 主机和真实集群上跑才算数。</li>
+    <li><b>"监管服务谁都能调"是否可以接受</b>，取决于你的真实网络和调用方——这一点需要你给信任模型，我不替你定。</li>
+    <li><b>能不能满足比赛/评审的口径</b>（命名、正式版本、文档完备度），需要评审细则原文，本报告不判。</li>
+    <li>本报告里凡是写"实测"的结论，都是 2026-10-04 在隔离目录实跑出来的；写"静态分析"的，是读配置与代码推出来的，没有跑。两类已分别标注。</li>
+  </ul>
+
+  <div class="foot">
+    生成：钥匙（跨领域结构分析专家）· 2026-10-04 · 配套文件：《监管种子_结构诊断_机读版.md》（给程序/智能体照着改的版本，含每条问题的原文位置、根因、改法与实测命令）。<br>
+    复现提醒：安装程序在重装时会覆盖目标目录的规则文件（见 P1），复现本报告任何一步请使用隔离目录，不要直接对你正在使用的部署目录操作。
+  </div>
+
+</div>
+</body>
+</html>
